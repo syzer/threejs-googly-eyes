@@ -128,9 +128,8 @@ function initModel({gltf, cowModel}) {
 
   canvas.addEventListener("mousemove", onMouseMove);
   canvas.addEventListener("mouseup", () => oldX = undefined);
-  canvas.addEventListener("touchmove", onMouseMove);
+  canvas.addEventListener("touchmove", onTouchMove);
   canvas.addEventListener("touchend", () => oldX = undefined);
-
   clock.start();
   resize();
 }
@@ -147,6 +146,10 @@ function resize() {
   renderer.setSize(window.innerWidth, window.innerHeight);
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
+}
+
+function onTouchMove(event) {
+  move(event.touches[0].clientX, event.touches[0].clientY);
 }
 
 function onMouseMove(event) {
@@ -166,5 +169,5 @@ function onShake() {
   eyes.position.z = startEyesPosition.z + (Math.random() + plusMinus * 0.4) * 0.1;
   setTimeout(() => {
     eyes.position.copy(startEyesPosition);
-  }, 400)
+  }, 40)
 }
